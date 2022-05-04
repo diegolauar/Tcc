@@ -1,10 +1,19 @@
 const mongoose = require("mongoose")
 const Costumer = mongoose.model('Costumer')
 
-exports.get = (req, res, next) =>{
-    Costumer.find({ active: true }, 'name email password cpf roles').then( data => {
+exports.get = (req, res, next) => {
+    Costumer.find({ active: true }, 'name email password cpf roles').then(data => {
         res.status(200).send(data)
-    }).catch(e =>{
+    }).catch(e => {
+        res.status(400).send(e)
+    })
+
+}
+
+exports.getByCpf = (req, res, next) => {
+    Costumer.findOne({ cpf: req.params.cpf, active: true},'name email password cpf roles').then(data => {
+        res.status(200).send(data)
+    }).catch(e => {
         res.status(400).send(e)
     })
 
@@ -13,8 +22,8 @@ exports.get = (req, res, next) =>{
 exports.post = (req, res, next) => {
     var costumer = new Costumer(req.body)
     costumer.save().then(x => {
-        res.status(201).send({ 
-            message: 'Cliente cadastrado com sucesso' 
+        res.status(201).send({
+            message: 'Cliente cadastrado com sucesso'
         })
     }).catch(e => {
         res.status(400).send({
