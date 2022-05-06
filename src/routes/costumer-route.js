@@ -7,7 +7,7 @@ router.get('/', controller.get)
 router.get('/:cpf', controller.getByCpf)
 router.post('/', controller.post)
 router.put('/:cpf', controller.put)
-router.delete('/', controller.delete)
+router.delete('/:cpf', controller.delete)
 
 
 module.exports = router
