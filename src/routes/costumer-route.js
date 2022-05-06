@@ -6,7 +6,7 @@ const controller = require('../controllers/costumer-controller')
 router.get('/', controller.get)
 router.get('/:cpf', controller.getByCpf)
 router.post('/', controller.post)
-router.put('/:id', controller.put)
+router.put('/:cpf', controller.put)
 router.delete('/', controller.delete)
 
 
