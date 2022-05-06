@@ -52,6 +52,17 @@ exports.put = (req, res, next) => {
         })
     })
 }
+
 exports.delete = (req, res, next) => {
-    res.status(200).send(req.body)
+    Costumer.findOneAndRemove({ cpf: req.params.cpf })  
+    .then(x=> {
+        res.status(201).send({
+            message: 'Cliente removido com sucesso'
+        })
+    }).catch(e=>{
+        res.status(400).send({
+            message: 'Falha ao remover cliente',
+            data: e
+        })
+    })
 }
