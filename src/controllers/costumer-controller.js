@@ -34,11 +34,22 @@ exports.post = (req, res, next) => {
     })
 
 }
+
 exports.put = (req, res, next) => {
-    const id = req.params.id
-    res.status(201).send({
-        id: id,
-        item: req.body
+    Costumer.findOneAndUpdate({ cpf: req.params.cpf },{
+        $set:{ 
+            name: req.body.name,
+            password: req.body.password
+        }
+    }).then(x=> {
+        res.status(201).send({
+            message: 'Cliente atualizado com sucesso'
+        })
+    }).catch(e=>{
+        res.status(400).send({
+            message: 'Falha ao atualizar cliente',
+            data: e
+        })
     })
 }
 exports.delete = (req, res, next) => {
