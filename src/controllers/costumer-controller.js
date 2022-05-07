@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const Costumer = mongoose.model('Costumer')
+const ValidationContract = require('../validators/fluent-validator')
 
 exports.get = (req, res, next) => {
     Costumer.find({ active: true }, 'name email password cpf roles').then(data => {
@@ -20,6 +21,15 @@ exports.getByCpf = (req, res, next) => {
 }
 
 exports.post = (req, res, next) => {
+    let contract = new ValidationContract()
+    contract.hasMinLen(req.body.cpf,11,'O Cpf deve conter pelo menos 11 caracteres')
+    contract.isEmail(req.body.email, 'E-mail inválido')
+
+    if (!contract.isValid()) {
+        res.status(400).send(contract.errors()).end();
+        return;
+    }
+
     var costumer = new Costumer(req.body)
     costumer.save().then(x => {
         res.status(201).send({
