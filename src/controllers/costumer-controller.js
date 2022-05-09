@@ -1,28 +1,38 @@
 const mongoose = require("mongoose")
 const Costumer = mongoose.model('Costumer')
 const ValidationContract = require('../validators/fluent-validator')
+const repository = require('../repositories/costumer-repository')
 
-exports.get = (req, res, next) => {
-    Costumer.find({ active: true }, 'name email password cpf roles').then(data => {
+exports.get = async (req, res, next) => {
+    try
+    {
+        var data = await repository.get()
         res.status(200).send(data)
-    }).catch(e => {
-        res.status(400).send(e)
-    })
+    }
+    catch (e){
+        res.status(500).send({
+            message: 'Falha ao buscar requisição'
+        })
+    }
+}
+
+exports.getByCpf = async (req, res, next) => {
+    try
+    {
+       var data = await repository.getByCpf(req.params.cpf)
+       res.status(200).send(data)
+    }
+    catch (e){
+        res.status(500).send({
+            message: 'Falha ao buscar requisição'
+        })
+    }
 
 }
 
-exports.getByCpf = (req, res, next) => {
-    Costumer.findOne({ cpf: req.params.cpf, active: true},'name email password cpf roles').then(data => {
-        res.status(200).send(data)
-    }).catch(e => {
-        res.status(400).send(e)
-    })
-
-}
-
-exports.post = (req, res, next) => {
+exports.post = async (req, res, next) => {
     let contract = new ValidationContract()
-    contract.hasMinLen(req.body.cpf,11,'O Cpf deve conter pelo menos 11 caracteres')
+    contract.hasMinLen(req.body.cpf, 11, 'O Cpf deve conter pelo menos 11 caracteres')
     contract.isEmail(req.body.email, 'E-mail inválido')
 
     if (!contract.isValid()) {
@@ -30,49 +40,50 @@ exports.post = (req, res, next) => {
         return;
     }
 
-    var costumer = new Costumer(req.body)
-    costumer.save().then(x => {
+  try
+  {
+    await repository.create(req.body).then(x => {
         res.status(201).send({
             message: 'Cliente cadastrado com sucesso'
         })
-    }).catch(e => {
-        res.status(400).send({
-            message: 'Falha ao cadastrado cliente',
-            data: e
-        })
-
     })
-
+  }
+  catch(e){
+    res.status(500).send({
+        message: 'Falha ao buscar requisição'
+    })
 }
 
-exports.put = (req, res, next) => {
-    Costumer.findOneAndUpdate({ cpf: req.params.cpf },{
-        $set:{ 
-            name: req.body.name,
-            password: req.body.password
-        }
-    }).then(x=> {
+    
+}
+
+exports.put = async (req, res, next) => {
+    try
+    {    
+    await repository.update(req.params.cpf, req.body)
         res.status(201).send({
             message: 'Cliente atualizado com sucesso'
         })
-    }).catch(e=>{
-        res.status(400).send({
-            message: 'Falha ao atualizar cliente',
-            data: e
+    }
+      catch(e){
+        res.status(500).send({
+            message: 'Falha ao buscar requisição'
         })
-    })
+    }
 }
 
-exports.delete = (req, res, next) => {
-    Costumer.findOneAndRemove({ cpf: req.params.cpf })  
-    .then(x=> {
+exports.delete = async (req, res, next) => {
+    try
+    {
+    await repository.delete({ cpf: req.params.cpf })
         res.status(201).send({
             message: 'Cliente removido com sucesso'
         })
-    }).catch(e=>{
-        res.status(400).send({
-            message: 'Falha ao remover cliente',
-            data: e
+    }
+    catch(e){
+        res.status(500).send({
+            message: 'Falha ao buscar requisição'
         })
-    })
+    }
+    
 }
