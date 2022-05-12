@@ -4,7 +4,7 @@ const Costumer = mongoose.model('Costumer')
 exports.get = async () => {
     const res = await Costumer.find({ 
         active: true 
-    },'name email password cpf roles')
+    },'name email cpf roles')
     return res
 }
 
@@ -12,7 +12,7 @@ exports.getByCpf = async (cpf) => {
     const res = await Costumer.findOne({
          cpf: cpf,
          active: true
-        },'name email password cpf roles')
+        },'name email cpf roles')
         return res
 }
 

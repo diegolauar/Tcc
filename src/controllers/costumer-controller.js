@@ -24,27 +24,20 @@ exports.getByCpf = async (req, res, next) => {
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição 212',
         })
     }
 
 }
 
 exports.post = async (req, res, next) => {
-    let contract = new ValidationContract()
-    contract.hasMinLen(req.body.cpf, 11, 'O Cpf deve conter pelo menos 11 caracteres')
-    contract.isEmail(req.body.email, 'E-mail inválido')
-
-    if (!contract.isValid()) {
-        res.status(400).send(contract.errors()).end();
-        return;
-    }
-
   try
   {
     await repository.create(req.body).then(x => {
         res.status(201).send({
-            message: 'Cliente cadastrado com sucesso'
+            message: 'Cliente cadastrado com sucesso',
+            body: req.body,
+            statusCode: 201
         })
     })
   }

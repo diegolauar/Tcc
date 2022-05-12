@@ -6,6 +6,6 @@ router.get('/', (req, res, next) => {
         title: "Node TCC",
         version: "0.0.1"
     })
-})
+}) 
 
 module.exports = router
