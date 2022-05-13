@@ -1,6 +1,4 @@
 const mongoose = require("mongoose")
-const Costumer = mongoose.model('Costumer')
-const ValidationContract = require('../validators/fluent-validator')
 const repository = require('../repositories/costumer-repository')
 
 exports.get = async (req, res, next) => {
@@ -55,6 +53,7 @@ exports.put = async (req, res, next) => {
     {    
     await repository.update(req.params.cpf, req.body)
         res.status(201).send({
+            statusCode: 200,
             message: 'Cliente atualizado com sucesso'
         })
     }
@@ -70,6 +69,7 @@ exports.delete = async (req, res, next) => {
     {
     await repository.delete({ cpf: req.params.cpf })
         res.status(201).send({
+            statusCode: 200,
             message: 'Cliente removido com sucesso'
         })
     }
