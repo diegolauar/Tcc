@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const repository = require('../repositories/costumer-repository')
+const repository = require('../repositories/customer-repository')
 
 exports.get = async (req, res, next) => {
     try
