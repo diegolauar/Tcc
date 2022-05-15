@@ -44,12 +44,21 @@ exports.getByCpf = async (req, res, next) => {
 exports.post = async (req, res, next) => {
   try
   {
-    await repository.create(req)
+    req.params.cpf = req.body.cpf
+    var createClient = await repository.getByCpf(req)
+
+    if(createClient.length == 0){
+        await repository.create(req)
         res.status(201).send({
             message: 'Cliente cadastrado com sucesso',
             body: req.body,
             statusCode: 201
         })
+    } else{
+        res.status(400).send({
+            message: 'Cliente já cadastrado'
+        })
+    }    
   }
   catch(e){
     res.status(500).send({

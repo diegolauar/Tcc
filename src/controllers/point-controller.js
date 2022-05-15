@@ -38,38 +38,38 @@ exports.post = async (req, res, next) => {
     res.status(500).send({
         message: 'Falha ao buscar requisição'
     })
-}
+    }
 
     
 }
 
-exports.put = async (req, res, next) => {
-    try
-    {    
-    await repository.update(req.params.cpf, req.body)
-        res.status(201).send({
-            message: 'Ponto atualizado com sucesso'
-        })
-    }
-      catch(e){
-        res.status(500).send({
-            message: 'Falha ao buscar requisição'
-        })
-    }
-}
+// exports.put = async (req, res, next) => {
+//     try
+//     {    
+//     await repository.update(req.params.cpf, req.body)
+//         res.status(201).send({
+//             message: 'Ponto atualizado com sucesso'
+//         })
+//     }
+//       catch(e){
+//         res.status(500).send({
+//             message: 'Falha ao buscar requisição'
+//         })
+//     }
+// }// 
 
-exports.delete = async (req, res, next) => {
-    try
-    {
-    await repository.delete(req.params.id)
-        res.status(201).send({
-            message: 'Estabelecimento removido com sucesso'
-        })
-    }
-    catch(e){
-        res.status(500).send({
-            message: 'Falha ao buscar requisição'
-        })
-    }
-    
-}
+// exports.delete = async (req, res, next) => {
+//     try
+//     {
+//     await repository.delete(req.params.id)
+//         res.status(201).send({
+//             message: 'Estabelecimento removido com sucesso'
+//         })
+//     }
+//     catch(e){
+//         res.status(500).send({
+//             message: 'Falha ao buscar requisição'
+//         })
+//     }
+//     
+// }

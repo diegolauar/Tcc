@@ -12,15 +12,15 @@ exports.create = async (data) => {
     await point.save()
 }
 
-exports.update = async (cpf, data) => {
-    await Point.findByIdAndUpdate(cpf, {
-        $set: {
-            name: data.name,
-            password: data.password
-        }
-    })
-}
-
-exports.delete = async (cpf) => {
-    await Point.findOneAndRemove(cpf)
-}
+// exports.update = async (cpf, data) => {
+//     await Point.findByIdAndUpdate(cpf, {
+//         $set: {
+//             name: data.name,
+//             password: data.password
+//         }
+//     })
+// }
+// 
+// exports.delete = async (cpf) => {
+//     await Point.findOneAndRemove(cpf)
+// }
