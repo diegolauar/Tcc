@@ -13,6 +13,7 @@ mongoose.connect('mongodb+srv://root:root@cluster0.tgpsz.mongodb.net/test')
 const Customer = require('./models/customer')
 const Establishment = require('./models/establishment')
 const Point = require('./models/point')
+const Premium = require('./models/premium')
 
 
 //Carrega as rotas
@@ -20,6 +21,8 @@ const indexRoute = require('./routes/index-route')
 const customerRoute = require('./routes/customer-route')
 const establishmentRoute = require('./routes/establishment-route')
 const pointRoute = require('./routes/point-route')
+const ppremiumRoute = require('./routes/premium-route')
+
 
 
 app.use(bodyParser.json())
@@ -32,6 +35,7 @@ app.use('/', indexRoute)
 app.use('/customer', customerRoute)
 app.use('/establishment', establishmentRoute)
 app.use('/point', pointRoute)
+app.use('/premium', ppremiumRoute)
 
 
 module.exports = app;
