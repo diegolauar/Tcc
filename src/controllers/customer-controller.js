@@ -1,5 +1,5 @@
-
-const repository = require('../repositories/customer-repository')
+const mongoose = require("mongoose")
+const repository = require('../repositories/costumer-repository')
 
 exports.get = async (req, res, next) => {
     try
@@ -35,7 +35,7 @@ exports.getByCpf = async (req, res, next) => {
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição 212',
         })
     }
 
@@ -46,7 +46,9 @@ exports.post = async (req, res, next) => {
   {
     await repository.create(req)
         res.status(201).send({
-            message: 'Cliente cadastrado com sucesso'
+            message: 'Cliente cadastrado com sucesso',
+            body: req.body,
+            statusCode: 201
         })
   }
   catch(e){
@@ -63,6 +65,7 @@ exports.put = async (req, res, next) => {
     {    
     await repository.update(req)
         res.status(201).send({
+            statusCode: 200,
             message: 'Cliente atualizado com sucesso'
         })
     }
@@ -78,6 +81,7 @@ exports.delete = async (req, res, next) => {
     {
     await repository.delete(req)
         res.status(201).send({
+            statusCode: 200,
             message: 'Cliente removido com sucesso'
         })
     }
