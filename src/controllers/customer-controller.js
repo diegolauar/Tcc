@@ -62,7 +62,16 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     try
-    {    
+    {            
+        var clientUpdate = await repository.getByCpf(req)
+
+        let sendPoint = parseFloat(clientUpdate[0].balance) 
+        sendPoint += parseFloat(req.body.balance)   
+
+
+        req.body.balance = sendPoint
+
+
     await repository.update(req)
         res.status(201).send({
             statusCode: 200,

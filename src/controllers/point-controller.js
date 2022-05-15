@@ -6,7 +6,7 @@ const repositoryCustomer = require('../repositories/customer-repository')
 exports.get = async (req, res, next) => {
     try
     {
-        var data = await repository.get()
+        var data = await repository.get(req)
         res.status(200).send(data)
     }
     catch (e){
@@ -18,15 +18,17 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {   
   try
-  {    
-    req.params.cpf = req.body.cpf
-    let clientUpdate = await repositoryCustomer.getByCpf(req) 
-    req.body.value = clientUpdate.balance  
-      
-    await repositoryCustomer.update(req)
+  {
+    req.params.cpf = req.body.cpf        
+    let clientUpdate = await repositoryCustomer.getByCpf(req)    
 
-  
-    await repository.create(req.body)
+    let sendPoint = parseFloat(clientUpdate[0].balance) 
+    sendPoint += parseFloat(req.body.value)     
+
+    req.body.balance = sendPoint
+
+    await repositoryCustomer.update(req)
+    await repository.create(req)
         res.status(201).send({
             message: 'Ponto cadastrado com sucesso',
             status: 201

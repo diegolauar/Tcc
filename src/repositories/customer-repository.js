@@ -15,7 +15,7 @@ exports.getByCpf = async (data) => {
     const res = await Customer.find({
          establishmentId: data.headers.establishmentid,
          cpf: data.params.cpf
-        },'name email password cpf balance roles')
+        })
         return res
 }
 
@@ -30,7 +30,7 @@ exports.update = async (data) => {
     const res = await Customer.findOneAndUpdate([{cpf: data.params.cpf}, 
         {establishmentId: data.headers.establishmentid}], {
         $set: {
-            balance: data.body.value
+            balance: data.body.balance
         }
     })
     return res

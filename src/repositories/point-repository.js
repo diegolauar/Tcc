@@ -1,15 +1,15 @@
 const mongoose = require("mongoose")
 const Point = mongoose.model('Point')
 
-exports.get = async () => {
-    const res = await Customer.find()
-    return res
+exports.get = async(data) => {
+    const res = await Point.find({establishmentId: data.headers.establishmentid});
+    return res;
 }
 
 exports.create = async (data) => {
-    var point = new Point(data)
+    data.body['establishmentId'] = data.headers.establishmentid
+    var point = new Point(data.body)
     await point.save()
-
 }
 
 exports.update = async (cpf, data) => {
