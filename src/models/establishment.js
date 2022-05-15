@@ -6,24 +6,23 @@ const schema = new Schema({
         type: String,
         required: true
     },
+    cnpj: {
+        type: String,  
+        required: true    
+    },
+    cellphone: {
+        type: String,
+        required: true
+    },    
     email: {
-        type: String,      
+        type: String,
+        required: true
     },
     password: {
         type: String,
         required: true
-    },
-    cpf: {
-        type: String,
-        required: true
-    },
-    roles: [{
-        type: String,
-        required: true,
-        enum: ['user', 'admin'],
-        default: 'user'
-    }]
+    },   
 });
 
 
-module.exports = mongoose.model('Costumer', schema)
+module.exports = mongoose.model('Establishment', schema)
