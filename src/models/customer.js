@@ -23,7 +23,8 @@ const schema = new Schema({
     },
     balance: {
         type: Number,
-        required: false
+        required: false,
+        default: 0
     },   
     cellphone: {
         type: String,
