@@ -27,5 +27,5 @@ exports.update = async (id, data) => {
 }
 
 exports.delete = async (id) => {
-    await Establishment.findOneAndRemove(id)
+    await Establishment.findByIdAndDelete(id)
 }

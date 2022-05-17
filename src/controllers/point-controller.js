@@ -11,7 +11,8 @@ exports.get = async (req, res, next) => {
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
         })
     }
 }
@@ -36,7 +37,8 @@ exports.post = async (req, res, next) => {
   }
   catch(e){
     res.status(500).send({
-        message: 'Falha ao buscar requisição'
+        message: 'Falha ao buscar requisição',
+        statusCode: 500
     })
     }
 

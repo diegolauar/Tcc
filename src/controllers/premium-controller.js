@@ -1,4 +1,3 @@
-const mongoose = require("mongoose")
 const repository = require('../repositories/premium-repository')
 
 exports.getIdEstab = async (req, res, next) => {
@@ -9,7 +8,8 @@ exports.getIdEstab = async (req, res, next) => {
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
         })
     }
 }
@@ -27,10 +27,10 @@ exports.post = async (req, res, next) => {
     }
   catch(e){
     res.status(500).send({
-        message: 'Falha ao buscar requisição'
+        message: 'Falha ao buscar requisição',
+        statusCode: 500
     })
-    }
-    
+    }    
 }
 
 exports.put = async (req, res, next) => {
@@ -38,13 +38,14 @@ exports.put = async (req, res, next) => {
     {           
     await repository.update(req)
         res.status(201).send({
-            statusCode: 200,
+            statusCode: 201,
             message: 'Premio atualizado com sucesso'
         })
     }
       catch(e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
         })
     }
 }
@@ -54,13 +55,14 @@ exports.delete = async (req, res, next) => {
     {
     await repository.delete(req)
         res.status(201).send({
-            statusCode: 200,
+            statusCode: 201,
             message: 'Premio removido com sucesso'
         })
     }
     catch(e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
         })
     }
     

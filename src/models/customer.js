@@ -29,7 +29,12 @@ const schema = new Schema({
     cellphone: {
         type: String,
         required: false
-    }    
+    },
+    createdDate: {
+        type: Date,
+        required: false,
+        default: Date.now
+    },    
 });
 
 

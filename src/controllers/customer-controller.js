@@ -9,7 +9,8 @@ exports.get = async (req, res, next) => {
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode:500
         })
     }
 }
@@ -18,11 +19,18 @@ exports.getIdEstab = async (req, res, next) => {
     try
     {
         var data = await repository.getEstablishmentId(req)
+        if(data.length == 0){
+            return res.status(404).send({
+                message: 'Clientes não encontrado',
+                statusCode: 404
+            })
+        }
         res.status(200).send(data)
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode:500
         })
     }
 }
@@ -31,11 +39,18 @@ exports.getByCpf = async (req, res, next) => {
     try
     {        
        var data = await repository.getByCpf(req)
+       if(data.length == 0){
+           return res.status(404).send({
+               message: 'Cliente não encontrado',
+               statusCode: 404
+           })
+       }
        res.status(200).send(data)
     }
     catch (e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição 212',
+            message: 'Falha ao buscar requisição',
+            statusCode:500
         })
     }
 
@@ -56,13 +71,15 @@ exports.post = async (req, res, next) => {
         })
     } else{
         res.status(400).send({
-            message: 'Cliente já cadastrado'
+            message: 'Cliente já cadastrado',
+            statusCode: 400
         })
     }    
   }
   catch(e){
     res.status(500).send({
-        message: 'Falha ao buscar requisição'
+        message: 'Falha ao buscar requisição',
+        statusCode:500
     })
 }
 
@@ -73,6 +90,13 @@ exports.put = async (req, res, next) => {
     try
     {            
         var clientUpdate = await repository.getByCpf(req)
+
+        if(clientUpdate.length == 0){
+            return res.status(404).send({
+                message: 'Cliente não encontrado',
+                statusCode: 404
+            })
+        }
 
         let sendPoint = parseFloat(clientUpdate[0].balance) 
         sendPoint += parseFloat(req.body.balance)   
@@ -89,7 +113,8 @@ exports.put = async (req, res, next) => {
     }
       catch(e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode:500
         })
     }
 }
@@ -105,7 +130,8 @@ exports.delete = async (req, res, next) => {
     }
     catch(e){
         res.status(500).send({
-            message: 'Falha ao buscar requisição'
+            message: 'Falha ao buscar requisição',
+            statusCode:500
         })
     }
     
