@@ -26,6 +26,7 @@ exports.post = async (req, res, next) => {
         let sendPoint = parseFloat(clientUpdate[0].balance) 
         sendPoint += parseFloat(req.body.value)     
         req.body.balance = sendPoint
+        req.body.name = clientUpdate[0].name
 
         await repositoryCustomer.update(req)
         await repository.create(req)
