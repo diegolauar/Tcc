@@ -96,15 +96,7 @@ exports.put = async (req, res, next) => {
                 message: 'Cliente não encontrado',
                 statusCode: 404
             })
-        }
-
-        let sendPoint = parseFloat(clientUpdate[0].balance) 
-        sendPoint += parseFloat(req.body.balance)   
-
-
-        req.body.balance = sendPoint
-
-
+        }      
     await repository.update(req)
         res.status(201).send({
             statusCode: 200,

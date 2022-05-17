@@ -34,6 +34,10 @@ exports.update = async (data) => {
         establishmentId: data.headers.establishmentid},
         {
         $set: {
+            name: data.body.name,
+            email: data.body.email,
+            password: data.body.password,
+            cpf: data.body.cpf,
             balance: data.body.balance
         }
     })
