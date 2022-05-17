@@ -7,16 +7,18 @@ exports.get = async() => {
 }
 
 exports.getEstablishmentId = async(data) => {
-    const res = await Customer.find({establishmentId: data.headers.establishmentid});
+    const res = await Customer.find({
+        establishmentId: data.headers.establishmentid
+    });
     return res;
 }
 
-exports.getByCpf = async (data) => {
+exports.getByCpf = async (data) => {    
     const res = await Customer.find({
-         establishmentId: data.headers.establishmentid,
-         cpf: data.params.cpf
-        })
-        return res
+        establishmentId: data.headers.establishmentid,
+        cpf: data.params.cpf
+       })
+       return res
 }
 
 exports.create = async (data) => {
@@ -26,9 +28,11 @@ exports.create = async (data) => {
 
 }
 
-exports.update = async (data) => {
-    const res = await Customer.findOneAndUpdate([{cpf: data.params.cpf}, 
-        {establishmentId: data.headers.establishmentid}], {
+exports.update = async (data) => {   
+    const res = await Customer.findOneAndUpdate({
+        cpf: data.body.cpf, 
+        establishmentId: data.headers.establishmentid},
+        {
         $set: {
             balance: data.body.balance
         }

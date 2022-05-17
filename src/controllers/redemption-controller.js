@@ -1,5 +1,5 @@
 
-const repository = require('../repositories/point-repository')
+const repository = require('../repositories/redemption-repository')
 const repositoryCustomer = require('../repositories/customer-repository')
 
 
@@ -20,26 +20,35 @@ exports.get = async (req, res, next) => {
 exports.post = async (req, res, next) => {   
   try
   {
-        req.params.cpf = req.body.cpf        
-        let clientUpdate = await repositoryCustomer.getByCpf(req)    
+    const cpf = req.body.cpf
 
-        let sendPoint = parseFloat(clientUpdate[0].balance) 
-        sendPoint += parseFloat(req.body.value)     
-        req.body.balance = sendPoint
+    req.params.cpf = cpf
+    req.body.total = (parseFloat(req.body.value) * (parseFloat(req.body.quantity)))    
 
-        await repositoryCustomer.update(req)
-        await repository.create(req)
+    let total = -1 * req.body.total    
+    let clientUpdate = await repositoryCustomer.getByCpf(req)
+
+    let sendPoint = parseFloat(clientUpdate[0].balance) 
+    sendPoint += parseFloat(total)     
+    req.body.balance = sendPoint
+
+    await repositoryCustomer.update(req)
+    req.body.establishmentId = req.headers.establishmentid    
+
+    await repository.create(req)
         res.status(201).send({
-            message: 'Ponto cadastrado com sucesso',
+            message: 'Resgate efetuado com sucesso',
             status: 201
         })
-    }
+  }
   catch(e){
-            res.status(500).send({
-            message: 'Falha ao buscar requisição',
-            statusCode: 500
-        })
-    }    
+    res.status(500).send({
+        message: 'Falha ao buscar requisição',
+        statusCode: 500
+    })
+    }
+
+    
 }
 
 // exports.put = async (req, res, next) => {

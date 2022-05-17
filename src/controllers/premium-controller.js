@@ -16,20 +16,19 @@ exports.getIdEstab = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
   try
-     {    
+    {    
         await repository.create(req)
-        res.status(201).send({
+            res.status(201).send({
             message: 'Premio cadastrado com sucesso',
             body: req.body,
             statusCode: 201
-        })
-    
+        })    
     }
   catch(e){
-    res.status(500).send({
-        message: 'Falha ao buscar requisição',
-        statusCode: 500
-    })
+            res.status(500).send({
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
+        })
     }    
 }
 

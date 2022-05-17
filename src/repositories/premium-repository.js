@@ -16,7 +16,8 @@ exports.create = async (data) => {
 }
 
 exports.update = async (data) => {
-    const res = await Premium.findOneAndUpdate([{id: data.body.id},
+    const res = await Premium.findOneAndUpdate([
+        {id: data.body.id},
         {establishmentId: data.headers.establishmentid}], {
         $set: {
             name: data.body.name,
