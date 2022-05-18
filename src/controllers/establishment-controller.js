@@ -42,6 +42,26 @@ exports.getById = async (req, res, next) => {
 
 }
 
+exports.login = async (req ,res ,next) => {
+    const establishment = await repository.getEstablishments()
+    console.log(req)
+    const establishmentLogin = establishment.filter(element => 
+        element.email === req.body.email && element.password === req.body.senha
+    )
+    if(establishmentLogin.length > 0){
+        res.status(200).send({
+            statusCode: 200,
+            message: "Login realizado com sucesso",
+            establishmentId: establishmentLogin[0]._id
+        })
+        return
+    }
+    res.status(404).send({
+        message: 'Dados inválidos',
+        statusCode: 404
+    })
+} 
+
 exports.post = async (req, res, next) => {
   try
   {
