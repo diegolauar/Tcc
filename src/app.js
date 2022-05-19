@@ -15,6 +15,8 @@ const Establishment = require('./models/establishment')
 const Point = require('./models/point')
 const Premium = require('./models/premium')
 const Redemption = require('./models/redemption')
+const Vouncher = require('./models/vouncher')
+
 
 
 //Carrega as rotas
@@ -24,6 +26,7 @@ const establishmentRoute = require('./routes/establishment-route')
 const pointRoute = require('./routes/point-route')
 const premiumRoute = require('./routes/premium-route')
 const redemptionRoute = require('./routes/redemption-route')
+const vouncherRoute = require('./routes/vouncher-route')
 
 
 
@@ -39,6 +42,8 @@ app.use('/establishment', establishmentRoute)
 app.use('/point', pointRoute)
 app.use('/premium', premiumRoute)
 app.use('/redemption', redemptionRoute)
+app.use('/vouncher', vouncherRoute)
+
 
 
 module.exports = app;

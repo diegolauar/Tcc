@@ -2,7 +2,6 @@
 const repository = require('../repositories/redemption-repository')
 const repositoryCustomer = require('../repositories/customer-repository')
 
-
 exports.get = async (req, res, next) => {
     try
     {
@@ -17,16 +16,37 @@ exports.get = async (req, res, next) => {
     }
 }
 
+exports.getByCpf = async (req, res, next) => {    
+    try
+    {  req.params.cpf = req.body.cpf      
+       var data = await repository.getByCpf(req)
+       if(data.length == 0){
+           return res.status(404).send({
+               message: 'Cliente não encontrado',
+               statusCode: 404
+           })
+       }
+       res.status(200).send(data)
+    }
+    catch (e){
+        res.status(500).send({
+            message: 'Falha ao buscar requisição',
+            statusCode:500
+        })
+    }
+}
+
+
 exports.post = async (req, res, next) => {   
   try
   {
-    const cpf = req.body.cpf
-
-    req.params.cpf = cpf
+    req.params.cpf = req.body.cpf 
     req.body.total = (parseFloat(req.body.value) * (parseFloat(req.body.quantity)))    
 
     let total = -1 * req.body.total    
     let clientUpdate = await repositoryCustomer.getByCpf(req)
+
+    req.body.name = clientUpdate[0].name
 
     let sendPoint = parseFloat(clientUpdate[0].balance) 
     sendPoint += parseFloat(total)     
@@ -39,8 +59,8 @@ exports.post = async (req, res, next) => {
         res.status(201).send({
             message: 'Resgate efetuado com sucesso',
             status: 201
-        })
-  }
+       })         
+    }
   catch(e){
     res.status(500).send({
         message: 'Falha ao buscar requisição',

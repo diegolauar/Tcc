@@ -5,33 +5,24 @@ const schema = new Schema({
     establishmentId: {
         type: mongoose.Schema.Types.ObjectId,
     },
+    idResgate: {
+        type: String,
+        required: true
+    },
     cpf: {
         type: String,
-        required: true,
+        required: true
     },
     name: {
         type: String,
-        required: true,
+        required: true
     },
-    descriptionPremium: {
+    statusVouncher: {
         type: String,
         required: true,
+        enum: ['disponivel', 'utilizado'],
+        default: 'disponivel'
     },
-    quantity: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    value: {
-        type: Number,
-        required: false,
-        default: 0
-    },   
-    total: {
-        type: Number,
-        required: false,
-        default: 0
-    },   
     createdDate: {
         type: Date,
         required: false,
@@ -40,4 +31,4 @@ const schema = new Schema({
 });
 
 
-module.exports = mongoose.model('Redemption', schema)
+module.exports = mongoose.model('Vouncher', schema)
