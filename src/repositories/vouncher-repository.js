@@ -2,17 +2,24 @@ const req = require("express/lib/request");
 const mongoose = require("mongoose")
 const Vouncher = mongoose.model('Vouncher')
 
-exports.get = async(data) => {
+exports.get = async (data) => {
     const res = await Vouncher.find({
         establishmentId: data.headers.establishmentid,
         cpf: data.body.cpf
     });
-    return res;    
+    return res;
 }
 
-exports.getById = async(data) => {
+exports.getAll = async (data) => {
+    const res = await Vouncher.find({
+        establishmentId: data.headers.establishmentid
+    });
+    return res;
+}
+
+exports.getById = async (data) => {
     const res = await Vouncher.findById(data.body._id);
-    return res;    
+    return res;
 }
 
 exports.create = async (data) => {
