@@ -1,18 +1,15 @@
 const mongoose = require("mongoose")
 const Redemption = mongoose.model('Redemption')
 
-exports.get = async(data) => {
+exports.get = async (data) => {
     const res = await Redemption.find({
         establishmentId: data.headers.establishmentid
     });
     return res;
 }
-exports.getByCpf = async (data) => {    
-    const res = await Redemption.find({
-        establishmentId: data.headers.establishmentid,
-        cpf: data.params.cpf
-       })
-       return res
+exports.getByCpf = async (data) => {
+    const res = await Redemption.findById(data.body._id)
+    return res
 }
 
 exports.create = async (data) => {

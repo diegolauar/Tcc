@@ -4,7 +4,7 @@ const controller = require('../controllers/redemption-controller')
 
 
 router.get('/', controller.get)
-router.get('/:cpf', controller.getByCpf)
+router.get('/id', controller.getByCpf)
 router.post('/', controller.post)
 // router.put('/:cpf', controller.put)
 // router.delete('/:cpf', controller.delete)

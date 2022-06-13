@@ -3,12 +3,11 @@ const repository = require('../repositories/redemption-repository')
 const repositoryCustomer = require('../repositories/customer-repository')
 
 exports.get = async (req, res, next) => {
-    try
-    {
+    try {
         var data = await repository.get(req)
         res.status(200).send(data)
     }
-    catch (e){
+    catch (e) {
         res.status(500).send({
             message: 'Falha ao buscar requisição',
             statusCode: 500
@@ -16,59 +15,58 @@ exports.get = async (req, res, next) => {
     }
 }
 
-exports.getByCpf = async (req, res, next) => {    
-    try
-    {  req.params.cpf = req.body.cpf      
-       var data = await repository.getByCpf(req)
-       if(data.length == 0){
-           return res.status(404).send({
-               message: 'Cliente não encontrado',
-               statusCode: 404
-           })
-       }
-       res.status(200).send(data)
+exports.getByCpf = async (req, res, next) => {
+    try {
+        var data = await repository.getByCpf(req)
+
+        if (data.length == 0) {
+            return res.status(404).send({
+                message: 'Cliente não encontrado',
+                statusCode: 404
+            })
+        }
+        res.status(200).send(data)
     }
-    catch (e){
+    catch (e) {
         res.status(500).send({
             message: 'Falha ao buscar requisição',
-            statusCode:500
+            statusCode: 500
         })
     }
 }
 
 
-exports.post = async (req, res, next) => {   
-  try
-  {
-    req.params.cpf = req.body.cpf 
-    req.body.total = (parseFloat(req.body.value) * (parseFloat(req.body.quantity)))    
+exports.post = async (req, res, next) => {
+    try {
+        req.params.cpf = req.body.cpf
+        req.body.total = (parseFloat(req.body.value) * (parseFloat(req.body.quantity)))
 
-    let total = -1 * req.body.total    
-    let clientUpdate = await repositoryCustomer.getByCpf(req)
+        let total = -1 * req.body.total
+        let clientUpdate = await repositoryCustomer.getByCpf(req)
 
-    req.body.name = clientUpdate[0].name
+        req.body.name = clientUpdate[0].name
 
-    let sendPoint = parseFloat(clientUpdate[0].balance) 
-    sendPoint += parseFloat(total)     
-    req.body.balance = sendPoint
+        let sendPoint = parseFloat(clientUpdate[0].balance)
+        sendPoint += parseFloat(total)
+        req.body.balance = sendPoint
 
-    await repositoryCustomer.update(req)
-    req.body.establishmentId = req.headers.establishmentid    
+        await repositoryCustomer.update(req)
+        req.body.establishmentId = req.headers.establishmentid
 
-    await repository.create(req)
+        await repository.create(req)
         res.status(201).send({
             message: 'Resgate efetuado com sucesso',
             status: 201
-       })         
+        })
     }
-  catch(e){
-    res.status(500).send({
-        message: 'Falha ao buscar requisição',
-        statusCode: 500
-    })
+    catch (e) {
+        res.status(500).send({
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
+        })
     }
 
-    
+
 }
 
 // exports.put = async (req, res, next) => {
