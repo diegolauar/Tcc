@@ -4,8 +4,8 @@ const controller = require('../controllers/premium-controller')
 
 router.get('/', controller.getIdEstab)
 router.post('/', controller.post)
-router.put('/:cpf', controller.put)
-router.delete('/:cpf', controller.delete)
+router.put('/', controller.put)
+router.delete('/', controller.delete)
 
 
 module.exports = router

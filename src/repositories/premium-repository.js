@@ -11,13 +11,12 @@ exports.getEstablishmentId = async(data) => {
 exports.create = async (data) => {
     data.body['establishmentId'] = data.headers.establishmentid
     var premium = new Premium(data.body)
-    await premium.save()
-
+    await premium.save()    
 }
 
 exports.update = async (data) => {
     const res = await Premium.findOneAndUpdate([
-        {id: data.body.id},
+        {id: data.body._id},
         {establishmentId: data.headers.establishmentid}], {
         $set: {
             name: data.body.name,
