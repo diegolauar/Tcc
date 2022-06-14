@@ -13,7 +13,7 @@ const schema = new Schema({
         type: Number,
         required: true,
         default: 0
-    },   
+    },
     status: {
         type: String,
         required: true,
@@ -23,11 +23,6 @@ const schema = new Schema({
     description: {
         type: String,
         required: true
-    },
-    image: {
-        type: String,
-        required: true,
-        trim: true
     }
 });
 
