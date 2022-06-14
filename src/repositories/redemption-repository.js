@@ -7,10 +7,20 @@ exports.get = async (data) => {
     });
     return res;
 }
+
 exports.getByCpf = async (data) => {
-    const res = await Redemption.findById(data.body._id)
+    const res = await Redemption.find({
+        establishmentId: data.headers.establishmentid,
+        cpf: data.params.cpf
+    })
     return res
 }
+
+// BUSCA ID RESGATE
+// exports.getByCpf = async (data) => {
+//     const res = await Redemption.findById(data.body._id)
+//     return res
+// }
 
 exports.create = async (data) => {
     var redemption = new Redemption(data.body)
