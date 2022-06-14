@@ -17,6 +17,7 @@ exports.get = async (req, res, next) => {
 
 exports.getByCpf = async (req, res, next) => {
     try {
+        req.params.cpf = req.body.cpf
         var data = await repository.getByCpf(req)
 
         if (data.length == 0) {
@@ -25,6 +26,19 @@ exports.getByCpf = async (req, res, next) => {
                 statusCode: 404
             })
         }
+        res.status(200).send(data)
+    }
+    catch (e) {
+        res.status(500).send({
+            message: 'Falha ao buscar requisição',
+            statusCode: 500
+        })
+    }
+}
+
+exports.getById = async (req, res, next) => {
+    try {
+        var data = await repository.getById(req)
         res.status(200).send(data)
     }
     catch (e) {

@@ -17,10 +17,10 @@ exports.getByCpf = async (data) => {
 }
 
 // BUSCA ID RESGATE
-// exports.getByCpf = async (data) => {
-//     const res = await Redemption.findById(data.body._id)
-//     return res
-// }
+exports.getById = async (data) => {
+    const res = await Redemption.findById(data.params.id)
+    return res
+}
 
 exports.create = async (data) => {
     var redemption = new Redemption(data.body)
