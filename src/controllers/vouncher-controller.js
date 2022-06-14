@@ -76,9 +76,9 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
     try {
-        await repository.update(req.params.cpf, req.body)
+        await repository.update(req.params.id, req.body)
         res.status(201).send({
-            message: 'Ponto atualizado com sucesso'
+            message: 'Vouncher atualizado com sucesso'
         })
     }
     catch (e) {

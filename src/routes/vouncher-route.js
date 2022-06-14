@@ -7,7 +7,7 @@ router.get('/', controller.get)
 router.get('/all', controller.getAll)
 router.get('/id', controller.getById)
 router.post('/', controller.post)
-// router.put('/:cpf', controller.put)
+router.put('/:id', controller.put)
 // router.delete('/:cpf', controller.delete)
 
 

@@ -32,15 +32,14 @@ exports.create = async (data) => {
     await vouncher.save()
 }
 
-// exports.update = async (cpf, data) => {
-//     await Vouncher.findByIdAndUpdate(cpf, {
-//         $set: {
-//             name: data.name,
-//             password: data.password
-//         }
-//     })
-// }
-// 
-// exports.delete = async (cpf) => {
-//     await Vouncher.findOneAndRemove(cpf)
-// }
+exports.update = async (id, data) => {
+    await Vouncher.findByIdAndUpdate(id, {
+        $set: {
+            statusVouncher: data.statusVouncher
+        }
+    })
+}
+
+exports.delete = async (cpf) => {
+    await Vouncher.findOneAndRemove(cpf)
+}
